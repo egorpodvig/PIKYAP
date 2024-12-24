@@ -1,1 +1,60 @@
+import unittest
+from main1 import Detail, Supplier, SupplierDetail
+from main1 import task1, task2, task3
+
+class TestTasks(unittest.TestCase):
+    def setUp(self):
+        self.details = [
+            Detail(1, "Деталь 1"),
+            Detail(2, "Деталь 2"),
+            Detail(3, "Сложная деталь"),
+            Detail(4, "Простая деталь"),
+        ]
+
+        self.suppliers = [
+            Supplier(1, "Поставщик А", 5000, 1),
+            Supplier(2, "Поставщик Б", 3000, 2),
+            Supplier(3, "Поставщик В", 4000, 3),
+            Supplier(4, "Поставщик Г", 2000, 1),
+            Supplier(5, "Поставщик Д", 2500, 4),
+        ]
+
+        self.supplier_details = [
+            SupplierDetail(1, 1),
+            SupplierDetail(2, 2),
+            SupplierDetail(3, 3),
+            SupplierDetail(4, 1),
+            SupplierDetail(5, 4),
+        ]
+
+    def test_task1(self):
+        expected = [
+            ("Деталь 1", "Поставщик А"),
+            ("Деталь 1", "Поставщик Г"),
+            ("Деталь 2", "Поставщик Б"),
+            ("Простая деталь", "Поставщик Д"),
+            ("Сложная деталь", "Поставщик В"),
+        ]
+        self.assertEqual(task1(self.details, self.suppliers), expected)
+
+    def test_task2(self):
+        expected = [
+            ("Деталь 1", 7000),
+            ("Сложная деталь", 4000),
+            ("Деталь 2", 3000),
+            ("Простая деталь", 2500),
+        ]
+        self.assertEqual(task2(self.details, self.suppliers), expected)
+
+    def test_task3(self):
+        expected = [
+            ("Деталь 1", ["Поставщик А", "Поставщик Г"]),
+            ("Деталь 2", ["Поставщик Б"]),
+            ("Сложная деталь", ["Поставщик В"]),
+            ("Простая деталь", ["Поставщик Д"]),
+        ]
+        self.assertEqual(task3(self.details, self.suppliers, self.supplier_details), expected)
+
+if __name__ == '__main__':
+    unittest.main()
 
